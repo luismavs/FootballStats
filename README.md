@@ -12,7 +12,7 @@ uv sync --all-extras
 
 ## Usage
 
-### Interactive Notebook
+### Interactive Notebook (local)
 
 ```bash
 uv run marimo edit notebooks/exploration.py
@@ -25,6 +25,18 @@ Opens a reactive notebook with:
 - Gini coefficient trend chart
 - Point gaps visualization (1st-2nd, 1st-4th, 1st-last)
 - Summary statistics
+
+### WASM Export (GitHub Pages)
+
+The `notebooks/exploration_wasm.py` notebook is a WASM-compatible version exported to `docs/index.html` for GitHub Pages hosting. It runs entirely in the browser via Pyodide with no server needed.
+
+> **Note:** This notebook uses **pandas** instead of polars. Polars is not available in the Pyodide version bundled with marimo's WASM export (`ModuleNotFoundError: No module named 'polars'`). Pandas ships as a Pyodide built-in, so it works out of the box. The `exploration.py` notebook continues to use polars locally.
+
+To regenerate the export after changes:
+
+```bash
+uv run marimo export html-wasm notebooks/exploration_wasm.py -o docs/index.html --mode run
+```
 
 ### As a Library
 
